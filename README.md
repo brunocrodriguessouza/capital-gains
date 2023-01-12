@@ -74,3 +74,16 @@ seguintes, antes de calcular o imposto."*
 menor ou igual a R$ 20000,00. Use o valor total da operação e não o lucro obtido para determinar se o
 imposto deve ou não ser pago. E não se esqueça de deduzir o prejuízo dos lucros seguintes.
 Nenhum imposto é pago em operações de compra."*
+
+## Uma explicação sobre as decisões técnicas e arquiteturais do desafio
+
+A arquitetura escolhida foi a Clean Architecture que é uma arquitetura de software proposta por Robert Cecil Martin (ou Uncle Bob, como é mais conhecido) que tem por objetivo padronizar e organizar o código desenvolvido, favorecer a sua reusabilidade, assim como independência de tecnologia.
+
+*"Temos uma camada de application onde não é implementada nenhuma regra de negócio, ela somente coordena a execução de uma tarefa e delega para os objetos de domínio na camada inferior."*
+
+ *"Basicamente a ideia é que toda ação executada pelo sistema se inicia a partir de estímulo externo, e este estímulo é normalmente descrito através de um caso de uso (UseCase). Com esta ideia em mente, os casos de uso podem ser considerados pontos de entrada para execução das lógicas de domínio."*
+ 
+  *"Da Forma que foi desenvolvida, não foi necessãrio nenhum framework externo, mas se por exemplo quisermos adicionarmos essa mesma entrada por rest API utilizando o Spring Framework ou qualquer outro framework podemos abstrair isso na camada de application."*
+ 
+
+
