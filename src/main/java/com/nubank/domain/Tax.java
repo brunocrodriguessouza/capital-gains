@@ -11,12 +11,10 @@ public class Tax {
         return tax;
     }
 
-    public void setTax(Double tax) {
-        this.tax = tax;
-    }
-
     @Override
     public String toString() {
-        return super.toString();
+        return "{" +
+                "\"tax\":" + tax +
+                '}';
     }
 }

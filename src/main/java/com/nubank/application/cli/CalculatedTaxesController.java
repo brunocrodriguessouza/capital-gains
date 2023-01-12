@@ -2,6 +2,7 @@ package com.nubank.application.cli;
 
 import com.google.gson.Gson;
 import com.nubank.domain.Order;
+import com.nubank.domain.Tax;
 import com.nubank.usecase.CalculateTaxesUseCase;
 
 import java.io.BufferedReader;
@@ -10,14 +11,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalculatedTaxesController {
 
-    void doCalculate(InputStream input){
+    public void doCalculate(InputStream input){
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
 
         List<List<Order>> ordersByLine = convertToOrder(input);
-        calculateTaxesUseCase.handle(ordersByLine);
+        ordersByLine.stream()
+                .map(calculateTaxesUseCase::handle)
+                .toList()
+                .forEach(System.out::println);
     }
 
 
@@ -26,7 +31,6 @@ public class CalculatedTaxesController {
         List<List<Order>> orderList = new ArrayList<>();
         Gson gson = new Gson();
         for(String line : lines ){
-
             List<Order> orders = Arrays.stream(gson.fromJson(line, Order[].class)).toList();
             orderList.add(orders);
         }

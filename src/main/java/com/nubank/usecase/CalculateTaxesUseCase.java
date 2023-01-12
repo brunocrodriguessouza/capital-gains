@@ -11,15 +11,11 @@ import java.util.List;
 
 public class CalculateTaxesUseCase {
 
-    public List<List<Tax>> handle(List<List<Order>> simulations){
-        List<List<Tax>> taxes = new ArrayList<>();
-
-        simulations.forEach(simulation -> taxes.add(calculateTax(simulation)));
-
-        return taxes;
+    public List<Tax> handle(List<Order> simulation){
+        return calculateTaxes(simulation);
     }
 
-    private List<Tax> calculateTax(List<Order> simulation){
+    private List<Tax> calculateTaxes(List<Order> simulation){
         int contractsBuy = 0;
         int contracts = 0;
         double balance = 0, amountBuy = 0, mediumPrice = 0, profit = 0, sellBalance;
