@@ -1,4 +1,4 @@
-package com.nubank;
+package com.nubank.application.cli;
 
 import com.google.gson.Gson;
 import com.nubank.domain.Order;
@@ -10,21 +10,18 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
-public class CapitalGains {
-    public static void main(String[] args) {
-        InputStream fis;
-        fis = CapitalGains.class.getClassLoader().getResourceAsStream("file.txt");
-        Locale.setDefault(new Locale("en", "US"));
+public class CalculatedTaxesController {
 
-        var order = convertToOrder(fis);
-
+    void doCalculate(InputStream input){
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
-        calculateTaxesUseCase.handle(order);
+
+        List<List<Order>> ordersByLine = convertToOrder(input);
+        calculateTaxesUseCase.handle(ordersByLine);
     }
 
-    private static List<List<Order>> convertToOrder(InputStream input) {
+
+    private List<List<Order>> convertToOrder(InputStream input) {
         List<String> lines = separateLines(input);
         List<List<Order>> orderList = new ArrayList<>();
         Gson gson = new Gson();
@@ -37,11 +34,15 @@ public class CapitalGains {
         return orderList;
     }
 
-    private static List<String> separateLines(InputStream inputStream) {
+    private List<String> separateLines(InputStream inputStream) {
         List<String> lines = new ArrayList<>();
 
         try{
-            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            // cli
+            InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+
+            // file
+//            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
@@ -63,4 +64,5 @@ public class CapitalGains {
         }
         return lines;
     }
+
 }
