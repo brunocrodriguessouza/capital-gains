@@ -1,6 +1,6 @@
 package com.nubank.usecase;
 
-import com.nubank.domain.Operation;
+import com.nubank.domain.OperationType;
 import com.nubank.domain.Order;
 import com.nubank.domain.Tax;
 import org.junit.jupiter.api.Test;
@@ -15,9 +15,9 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase1(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 100),
-                new Order(Operation.SELL, 15.00, 50),
-                new Order(Operation.SELL, 15.00, 50)
+                new Order(OperationType.BUY, 10.00, 100),
+                new Order(OperationType.SELL, 15.00, 50),
+                new Order(OperationType.SELL, 15.00, 50)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -31,9 +31,9 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase2(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 20.00, 5000),
-                new Order(Operation.SELL, 5.00, 5000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 20.00, 5000),
+                new Order(OperationType.SELL, 5.00, 5000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -47,15 +47,15 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase1AndCase2(){
         var simulation1 = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 100),
-                new Order(Operation.SELL, 15.00, 50),
-                new Order(Operation.SELL, 15.00, 50)
+                new Order(OperationType.BUY, 10.00, 100),
+                new Order(OperationType.SELL, 15.00, 50),
+                new Order(OperationType.SELL, 15.00, 50)
         );
 
         var simulation2 = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 20.00, 5000),
-                new Order(Operation.SELL, 5.00, 5000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 20.00, 5000),
+                new Order(OperationType.SELL, 5.00, 5000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -75,9 +75,9 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase3(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 5.00, 5000),
-                new Order(Operation.SELL, 20.00, 3000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 5.00, 5000),
+                new Order(OperationType.SELL, 20.00, 3000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -91,9 +91,9 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase4(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.BUY, 25.00, 5000),
-                new Order(Operation.SELL, 15.00, 10000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.BUY, 25.00, 5000),
+                new Order(OperationType.SELL, 15.00, 10000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -107,10 +107,10 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase5(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.BUY, 25.00, 5000),
-                new Order(Operation.SELL, 15.00, 10000),
-                new Order(Operation.SELL, 25.00, 5000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.BUY, 25.00, 5000),
+                new Order(OperationType.SELL, 15.00, 10000),
+                new Order(OperationType.SELL, 25.00, 5000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -126,11 +126,11 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase6(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 2.00, 5000),
-                new Order(Operation.SELL, 20.00, 2000),
-                new Order(Operation.SELL, 20.00, 2000),
-                new Order(Operation.SELL, 25.00, 1000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 2.00, 5000),
+                new Order(OperationType.SELL, 20.00, 2000),
+                new Order(OperationType.SELL, 20.00, 2000),
+                new Order(OperationType.SELL, 25.00, 1000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -146,15 +146,15 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestCase7(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 2.00, 5000),
-                new Order(Operation.SELL, 20.00, 2000),
-                new Order(Operation.SELL, 20.00, 2000),
-                new Order(Operation.SELL, 25.00, 1000),
-                new Order(Operation.BUY, 20.00, 10000),
-                new Order(Operation.SELL, 15.00, 5000),
-                new Order(Operation.SELL, 30.00, 4350),
-                new Order(Operation.SELL, 30.00, 650)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 2.00, 5000),
+                new Order(OperationType.SELL, 20.00, 2000),
+                new Order(OperationType.SELL, 20.00, 2000),
+                new Order(OperationType.SELL, 25.00, 1000),
+                new Order(OperationType.BUY, 20.00, 10000),
+                new Order(OperationType.SELL, 15.00, 5000),
+                new Order(OperationType.SELL, 30.00, 4350),
+                new Order(OperationType.SELL, 30.00, 650)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -175,10 +175,10 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestScenario8(){
         var simulation = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 50.00, 10000),
-                new Order(Operation.BUY, 20.00, 10000),
-                new Order(Operation.SELL, 50.00, 10000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 50.00, 10000),
+                new Order(OperationType.BUY, 20.00, 10000),
+                new Order(OperationType.SELL, 50.00, 10000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
@@ -194,13 +194,13 @@ class CalculateTaxesUseCaseTest {
     @Test
     void shouldTestScenarioFirstExample(){
         var simulation1 = Arrays.asList(
-                new Order(Operation.BUY, 10.00, 10000),
-                new Order(Operation.SELL, 20.00, 5000)
+                new Order(OperationType.BUY, 10.00, 10000),
+                new Order(OperationType.SELL, 20.00, 5000)
         );
 
         var simulation2 = Arrays.asList(
-                new Order(Operation.BUY, 20.00, 10000),
-                new Order(Operation.SELL, 10.00, 5000)
+                new Order(OperationType.BUY, 20.00, 10000),
+                new Order(OperationType.SELL, 10.00, 5000)
         );
 
         CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();

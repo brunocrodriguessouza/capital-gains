@@ -14,14 +14,14 @@ json através da entrada padrão ( stdin ). Cada operação desta lista contém 
 
 | Nome  |Significado |
 | ------------- | ------------- |
-| operation  | Se a operação é uma operação de compra ( buy ) ou venda ( sell )  |
+| operationType  | Se a operação é uma operação de compra ( buy ) ou venda ( sell )  |
 | unit-cost  | Preço unitário da ação em uma moeda com duas casas decimais  |
 | quantity  | Quantidade de ações negociadas  |
 
 ## Este é um exemplo da entrada:<br/>
 
-    [{"operation": "buy", "unit-cost": 10.00, "quantity": 10000},{"operation": "sell", "unit-cost": 20.00, "quantity": 5000}]
-    [{"operation": "buy", "unit-cost": 20.00, "quantity": 10000},{"operation": "sell", "unit-cost": 10.00, "quantity": 5000}]
+    [{"operationType": "buy", "unit-cost": 10.00, "quantity": 10000},{"operationType": "sell", "unit-cost": 20.00, "quantity": 5000}]
+    [{"operationType": "buy", "unit-cost": 20.00, "quantity": 10000},{"operationType": "sell", "unit-cost": 10.00, "quantity": 5000}]
 
 *"As operações estarão na ordem em que elas ocorreram, ou seja, a segunda operação na lista aconteceu
 depois da primeira e assim por diante.

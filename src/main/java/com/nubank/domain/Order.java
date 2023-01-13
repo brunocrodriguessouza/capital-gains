@@ -4,25 +4,25 @@ import com.google.gson.annotations.SerializedName;
 
 public class Order {
 
-    public Order(Operation operation, Double unitCost, Integer quantity) {
-        this.operation = operation;
+    public Order(OperationType operationType, Double unitCost, Integer quantity) {
+        this.operationType = operationType;
         this.unitCost = unitCost;
         this.quantity = quantity;
     }
 
-    @SerializedName("operation")
-    private Operation operation;
+    @SerializedName("operationType")
+    private OperationType operationType;
 
     @SerializedName("unit-cost")
     private Double unitCost;
     private Integer quantity;
 
-    public Operation getOperation() {
-        return operation;
+    public OperationType getOperation() {
+        return operationType;
     }
 
-    public void setOperation(Operation operation) {
-        this.operation = operation;
+    public void setOperation(OperationType operationType) {
+        this.operationType = operationType;
     }
 
     public Double getUnitCost() {
@@ -52,7 +52,7 @@ public class Order {
     @Override
     public String toString() {
         return """
-                [{\"operation\":\"%s\", \"unit-cost\":%.2f, \"quantity\":%d}]"""
-                .formatted(operation.getValue(), unitCost, quantity ) ;
+                [{\"operationType\":\"%s\", \"unit-cost\":%.2f, \"quantity\":%d}]"""
+                .formatted(operationType.getValue(), unitCost, quantity ) ;
     }
 }

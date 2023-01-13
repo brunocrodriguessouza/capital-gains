@@ -2,7 +2,6 @@ package com.nubank.application.cli;
 
 import com.google.gson.Gson;
 import com.nubank.domain.Order;
-import com.nubank.domain.Tax;
 import com.nubank.usecase.CalculateTaxesUseCase;
 
 import java.io.BufferedReader;
@@ -11,7 +10,6 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CalculatedTaxesController {
 
@@ -30,6 +28,7 @@ public class CalculatedTaxesController {
         List<String> lines = separateLines(input);
         List<List<Order>> orderList = new ArrayList<>();
         Gson gson = new Gson();
+
         for(String line : lines ){
             List<Order> orders = Arrays.stream(gson.fromJson(line, Order[].class)).toList();
             orderList.add(orders);
@@ -42,11 +41,7 @@ public class CalculatedTaxesController {
         List<String> lines = new ArrayList<>();
 
         try{
-            // cli
-            InputStreamReader inputStreamReader = new InputStreamReader(System.in);
-
-            // file
-//            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
@@ -58,13 +53,13 @@ public class CalculatedTaxesController {
                 if(line.contains("]")){
                     sb.append(line);
                     lines.add(sb.toString());
-                    sb = new StringBuilder("");
+                    sb = new StringBuilder();
                 }else{
                     sb.append(line);
                 }
             }
         } catch (Exception e){
-            throw new RuntimeException("InputStream");
+            throw new RuntimeException("Invalid InputStream");
         }
         return lines;
     }
