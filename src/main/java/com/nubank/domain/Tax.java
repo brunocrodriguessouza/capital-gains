@@ -1,7 +1,7 @@
 package com.nubank.domain;
 
 public class Tax {
-    private Double tax;
+    private final Double tax;
 
     public Tax(Double tax) {
         this.tax = tax;
@@ -14,7 +14,7 @@ public class Tax {
     @Override
     public String toString() {
         return "{" +
-                "\"tax\":" + tax +
+                "\"tax\":" + String.format("%.2f",tax) +
                 '}';
     }
 }

@@ -49,10 +49,4 @@ public class Order {
         }
     }
 
-    @Override
-    public String toString() {
-        return """
-                [{\"operationType\":\"%s\", \"unit-cost\":%.2f, \"quantity\":%d}]"""
-                .formatted(operationType.getValue(), unitCost, quantity ) ;
-    }
 }

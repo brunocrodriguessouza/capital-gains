@@ -1,7 +1,7 @@
 package com.nubank.usecase;
 
 import com.nubank.domain.Order;
-import com.nubank.domain.SimulationParameters;
+import com.nubank.domain.SimulationProperties;
 import com.nubank.domain.Tax;
 
 import java.util.List;
@@ -13,10 +13,10 @@ public class CalculateTaxesUseCase {
     }
 
     private List<Tax> calculateTaxes(List<Order> simulation){
-        SimulationParameters simulationParameters = new SimulationParameters();
-        simulation.forEach(order -> order.getOperation().execute(simulationParameters, order));
+        SimulationProperties simulationProperties = new SimulationProperties();
+        simulation.forEach(order -> order.getOperation().execute(simulationProperties, order));
 
-        return simulationParameters.getTaxes();
+        return simulationProperties.getTaxes();
     }
 
 }

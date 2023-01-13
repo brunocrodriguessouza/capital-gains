@@ -1,8 +1,8 @@
-package com.nubank.application.cli;
+package com.nubank.adapter;
 
 import com.google.gson.Gson;
+import com.nubank.application.CalculatedTaxesController;
 import com.nubank.domain.Order;
-import com.nubank.usecase.CalculateTaxesUseCase;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,16 +11,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CalculatedTaxesController {
+public class InputCLIAdapter {
 
-    public void doCalculate(InputStream input){
-        CalculateTaxesUseCase calculateTaxesUseCase = new CalculateTaxesUseCase();
+    public void handleInput(InputStream input){
+        CalculatedTaxesController calculatedTaxesController = new CalculatedTaxesController();
 
         List<List<Order>> ordersByLine = convertToOrder(input);
-        ordersByLine.stream()
-                .map(calculateTaxesUseCase::handle)
-                .toList()
-                .forEach(System.out::println);
+        calculatedTaxesController.doCalculate(ordersByLine);
     }
 
 
@@ -29,10 +26,7 @@ public class CalculatedTaxesController {
         List<List<Order>> orderList = new ArrayList<>();
         Gson gson = new Gson();
 
-        for(String line : lines ){
-            List<Order> orders = Arrays.stream(gson.fromJson(line, Order[].class)).toList();
-            orderList.add(orders);
-        }
+        lines.forEach(line -> orderList.add(Arrays.stream(gson.fromJson(line, Order[].class)).toList()));
 
         return orderList;
     }
@@ -45,7 +39,7 @@ public class CalculatedTaxesController {
 
             BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
             String line;
-            StringBuilder sb = new StringBuilder("");
+            StringBuilder sb = new StringBuilder();
             while((line = bufferedReader.readLine()) != null){
                 if(line.equals("")){
                     break;
@@ -63,5 +57,4 @@ public class CalculatedTaxesController {
         }
         return lines;
     }
-
 }

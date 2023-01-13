@@ -2,56 +2,59 @@ package com.nubank.domain;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public enum OperationType implements Operation{
 
     @SerializedName("buy")
-    BUY("buy"){
+    BUY(){
         @Override
-        public void execute(SimulationParameters params, Order order) {
-            params.updateAmountBuy( order.getQuantity() * order.getUnitCost());
-            params.updateContractsBuy(order.getQuantity());
-            params.setMediumPrice(params.format(params.getAmountBuy() / params.getContractsBuy()));
+        public void execute(SimulationProperties params, Order order) {
+
+            var currentPrice = params.getMediumPrice().multiply(BigDecimal.valueOf(params.getStockQuantity()));
+            var newPrice = BigDecimal.valueOf(order.getUnitCost() * order.getQuantity());
+
+            params.setStockQuantity(params.getStockQuantity() + order.getQuantity());
+            var quantity = BigDecimal.valueOf(params.getStockQuantity());
+            var result = currentPrice.add(newPrice);
+
+            if(params.getStockQuantity() > 0){
+                result = result.divide(quantity, RoundingMode.HALF_UP);
+            }
+
+            params.setMediumPrice(result);
+
             params.getTaxes().add(new Tax(0.00));
-            params.updateContracts(order.getQuantity());
         }
     },
 
+
     @SerializedName("sell")
-    SELL("sell"){
+    SELL(){
         @Override
-        public void execute(SimulationParameters params, Order order) {
-            params.setSellPrice(params.format((order.getUnitCost() - params.getMediumPrice()) * order.getQuantity() ));
-            params.updateBalance(params.getSellPrice());
+        public void execute(SimulationProperties params, Order order) {
+            var total = order.getQuantity() * order.getUnitCost();
 
-            if(params.getSellPrice() > 0){
-                params.updateProfit(params.getSellPrice());
-            }
-            if((params.getBalance() > 0 && params.getSellPrice() > 0 && params.getProfit() > 20000.00)){
-                params.getTaxes().add(new Tax(params.getBalance() * 0.2));
-                params.setBalance(params.getBalance() * 0.8);
-                params.setProfit(0.00);
-            }else {
-                params.getTaxes().add(new Tax(0.00));
-            }
-            params.updateContracts(-1 * order.getQuantity());
+            var previousTotal = params.getMediumPrice().multiply(BigDecimal.valueOf(order.getQuantity()));
+            params.setBalance(params.getBalance().add(BigDecimal.valueOf(total).subtract(previousTotal)));
 
-            if(params.getContracts() == 0){
-                params.setContractsBuy(0);
-                params.setAmountBuy(0.00);
-                params.setBalance(0.00);
+            Tax tax = new Tax(0.00);
+
+            if(total > TAX_LIMITED || params.getBalance().compareTo(BigDecimal.valueOf(TAX_LIMITED)) > 0 ){
+                var totalTax = params.getBalance().multiply(BigDecimal.valueOf(0.20)).doubleValue();
+                if(totalTax > 0){
+                    tax = new Tax(totalTax);
+                    params.setBalance(BigDecimal.ZERO);
+                }
             }
+
+            params.getTaxes().add(tax);
+            params.setStockQuantity(params.getStockQuantity() - order.getQuantity());
         }
     };
 
-    private String value;
-
-    OperationType(String value){
-        this.value = value;
-    }
-
-    public String getValue() {
-        return value;
-    }
+    public static final int TAX_LIMITED = 20000;
 
 }
 

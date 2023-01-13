@@ -1,5 +1,5 @@
 package com.nubank.domain;
 
 public interface Operation {
-    void execute(SimulationParameters simulationParameters, Order order);
+    void execute(SimulationProperties simulationProperties, Order order);
 }
