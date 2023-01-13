@@ -173,7 +173,7 @@ class CalculateTaxesUseCaseTest {
     }
 
     @Test
-    void shouldTestScenario8(){
+    void shouldTestCase8(){
         var simulation = Arrays.asList(
                 new Order(OperationType.BUY, 10.00, 10000),
                 new Order(OperationType.SELL, 50.00, 10000),
@@ -192,7 +192,7 @@ class CalculateTaxesUseCaseTest {
 
 
     @Test
-    void shouldTestScenarioFirstExample(){
+    void shouldTestCaseFirstExample(){
         var simulation1 = Arrays.asList(
                 new Order(OperationType.BUY, 10.00, 10000),
                 new Order(OperationType.SELL, 20.00, 5000)

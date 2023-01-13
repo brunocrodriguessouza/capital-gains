@@ -20,13 +20,13 @@ public enum OperationType implements Operation{
     SELL("sell"){
         @Override
         public void execute(SimulationParameters params, Order order) {
-            params.setSellBalance(params.format((order.getUnitCost() - params.getMediumPrice()) * order.getQuantity() ));
-            params.updateBalance(params.getSellBalance());
+            params.setSellPrice(params.format((order.getUnitCost() - params.getMediumPrice()) * order.getQuantity() ));
+            params.updateBalance(params.getSellPrice());
 
-            if(params.getSellBalance() > 0){
-                params.updateProfit(params.getSellBalance());
+            if(params.getSellPrice() > 0){
+                params.updateProfit(params.getSellPrice());
             }
-            if((params.getBalance() > 0 && params.getSellBalance() > 0 && params.getProfit() > 20000.00)){
+            if((params.getBalance() > 0 && params.getSellPrice() > 0 && params.getProfit() > 20000.00)){
                 params.getTaxes().add(new Tax(params.getBalance() * 0.2));
                 params.setBalance(params.getBalance() * 0.8);
                 params.setProfit(0.00);
@@ -34,6 +34,7 @@ public enum OperationType implements Operation{
                 params.getTaxes().add(new Tax(0.00));
             }
             params.updateContracts(-1 * order.getQuantity());
+
             if(params.getContracts() == 0){
                 params.setContractsBuy(0);
                 params.setAmountBuy(0.00);

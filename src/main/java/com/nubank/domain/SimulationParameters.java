@@ -8,7 +8,7 @@ import java.util.List;
 public class SimulationParameters {
 
     private Integer contractsBuy, contracts;
-    private Double balance, amountBuy, mediumPrice, profit, sellBalance;
+    private Double balance, amountBuy, mediumPrice, profit, sellPrice;
     private List<Tax> taxes;
 
     public SimulationParameters() {
@@ -18,7 +18,7 @@ public class SimulationParameters {
         this.amountBuy = 0.0;
         this.mediumPrice = 0.0;
         this.profit = 0.0;
-        this.sellBalance = 0.0;
+        this.sellPrice = 0.0;
         this.taxes = new ArrayList<>();
     }
 
@@ -86,12 +86,12 @@ public class SimulationParameters {
         this.profit += value;
     }
 
-    public Double getSellBalance() {
-        return sellBalance;
+    public Double getSellPrice() {
+        return sellPrice;
     }
 
-    public void setSellBalance(Double sellBalance) {
-        this.sellBalance = sellBalance;
+    public void setSellPrice(Double sellPrice) {
+        this.sellPrice = sellPrice;
     }
 
     public List<Tax> getTaxes() {
